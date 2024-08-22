@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'; // Assuming you're using react-router
 import CustomerDetails from '../CustomerDetails';
 import ProductDetails from '../ProductDetails';
 import OrderDetails from '../OrderDetails';
@@ -7,6 +8,16 @@ import RegisteredCustomers from '../RegisteredCustomers';
 import './AdminPage.css';
 
 export default function Admin() {
+    const history = useHistory(); // To handle redirection
+
+    // Check admin status when component mounts
+    useEffect(() => {
+        const isAdmin = localStorage.getItem('isAdmin');
+        if (isAdmin !== 'true') {
+            history.push('/'); 
+        }
+    }, [history]);
+
     const [showCustomers, setShowCustomers] = useState(false);
     const [showProducts, setShowProducts] = useState(false);
     const [showOrders, setShowOrders] = useState(false);

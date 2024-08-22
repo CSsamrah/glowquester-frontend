@@ -13,35 +13,42 @@ const SignInPage = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('https://glowquester-backend.vercel.app/skincare/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+        const response = await fetch('https://glowquester-backend.vercel.app/skincare/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
-      }
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
+        }
 
-      const data = await response.text();
+        const data = await response.json(); // Assuming the backend returns JSON
 
-      if (response.status === 200) {
-        setSuccess(data);
-        setError('');
-        navigate('/admin');
-      } else {
-        setError(data);
-        setSuccess('');
-      }
+        if (response.status === 200) {
+            setSuccess(data.message); // Adjust based on your response structure
+            setError('');
+
+            // Assuming the admin email is hardcoded or comes from the backend response
+            if (data.user.email === 'samra.fatima.790@gmail.com') { // Hardcode your admin email here
+                localStorage.setItem('isAdmin', 'true');
+            } else {
+                localStorage.setItem('isAdmin', 'false');
+            }
+
+            navigate('/admin');
+        } else {
+            setError(data.message); // Adjust based on your response structure
+            setSuccess('');
+        }
     } catch (error) {
-      setError(error.message);
-      setSuccess('');
+        setError(error.message);
+        setSuccess('');
     }
-  };
-
+};
   return (
     <div className="loginpage">
       <form id="loginForm" onSubmit={handleSubmit}>
