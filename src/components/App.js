@@ -78,9 +78,6 @@ const HomePage = () => (
       <Properties />
     </Box>
     <Box>
-      <Description />
-    </Box>
-    <Box>
       <TopPicks />
     </Box>
     <Box>
