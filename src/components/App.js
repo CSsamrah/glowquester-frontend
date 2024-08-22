@@ -62,7 +62,9 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<CheckoutForm />} />
             <Route path="/order-summary" element={<OrderSummary />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin" element={<ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>} />
             <Route path="/product/:product_id" element={<ProductDetail />} />
           </Routes>
         </div>
