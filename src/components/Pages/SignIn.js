@@ -33,7 +33,7 @@ const SignInPage = () => {
         setError('');
 
         // Set admin status
-        if (data.user.email === 'your-email@example.com') {
+        if (data.user.email === 'samra.fatima.790@gmail.com') {
           localStorage.setItem('isAdmin', 'true');
         } else {
           localStorage.setItem('isAdmin', 'false');
