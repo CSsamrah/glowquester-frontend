@@ -14,7 +14,7 @@ export default function Admin() {
     useEffect(() => {
         const isAdmin = localStorage.getItem('isAdmin');
         if (isAdmin !== 'true') {
-            navigate('/not-authorized'); // Use navigate instead of history.push
+            navigate('/'); // Use navigate instead of history.push
         }
     }, [navigate]);
 
