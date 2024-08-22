@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'; // Assuming you're using react-router
+import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
 import CustomerDetails from '../CustomerDetails';
 import ProductDetails from '../ProductDetails';
 import OrderDetails from '../OrderDetails';
@@ -8,15 +8,15 @@ import RegisteredCustomers from '../RegisteredCustomers';
 import './AdminPage.css';
 
 export default function Admin() {
-    const history = useHistory(); // To handle redirection
+    const navigate = useNavigate(); // Use useNavigate for redirection
 
-    // Check admin status when component mounts
+    // Check admin status on component mount
     useEffect(() => {
         const isAdmin = localStorage.getItem('isAdmin');
         if (isAdmin !== 'true') {
-            history.push('/'); 
+            navigate('/not-authorized'); // Use navigate instead of history.push
         }
-    }, [history]);
+    }, [navigate]);
 
     const [showCustomers, setShowCustomers] = useState(false);
     const [showProducts, setShowProducts] = useState(false);
