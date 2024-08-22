@@ -13,42 +13,45 @@ const SignInPage = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('https://glowquester-backend.vercel.app/skincare/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+        const response = await fetch('https://glowquester-backend.vercel.app/skincare/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
-      }
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        setSuccess(data.message);
-        setError('');
-
-        // Set admin status
-        if (data.user.email === 'samra.fatima.790@gmail.com') {
-          localStorage.setItem('isAdmin', 'true');
-        } else {
-          localStorage.setItem('isAdmin', 'false');
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
         }
 
-        navigate('/admin'); // Use navigate instead of history.push
-      } else {
-        setError(data.message);
-        setSuccess('');
-      }
+        const data = await response.json();
+
+        if (response.status === 200) {
+            setSuccess(data.message);
+            setError('');
+
+            // Check if the data object has the email property
+            const userEmail = data.email || ''; // Default to an empty string if email is not present
+
+            // Set admin status based on response email
+            if (userEmail === 'samra.fatima.790@gmail.com') { // Replace with the actual admin email
+                localStorage.setItem('isAdmin', 'true');
+            } else {
+                localStorage.setItem('isAdmin', 'false');
+            }
+
+            navigate('/admin'); // Navigate to admin page
+        } else {
+            setError(data.message || 'An error occurred');
+            setSuccess('');
+        }
     } catch (error) {
-      setError(error.message);
-      setSuccess('');
+        setError(error.message);
+        setSuccess('');
     }
-  };
+};
 
   return (
     <div className="loginpage">
