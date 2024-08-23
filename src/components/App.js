@@ -31,6 +31,7 @@ import OrderSummary from './Pages/OrderSummary';
 import SignUpPage from './Pages/SignUpPage';
 import SignInPage from './Pages/SignIn';
 import ProductDetail from'./ProductDetail'
+import ProtectedRoute from './ProtectedRoute'
 
 function App() {
   const location = useLocation();

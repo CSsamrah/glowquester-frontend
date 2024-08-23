@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const isAdmin = localStorage.getItem('isAdmin') === 'true'; // Check if user is admin
 
   if (!isAdmin) {
-    return <Navigate to="/login" />; // Redirect to login page if not admin
+    return <Navigate to="/" />; // Redirect to login page if not admin
   }
 
   return children;
